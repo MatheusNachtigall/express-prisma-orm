@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "sourceMap": true,
+    "lib": ["esnext"]
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist"],
+  "ts-node": {
+    "files": true
+  }
+}
