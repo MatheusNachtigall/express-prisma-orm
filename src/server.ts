@@ -23,4 +23,4 @@ const app = new App({
   ],
 });
 
-app.listen();
+export { app };

@@ -5,6 +5,19 @@ export default class ProductService {
   public create = async (req: Request, res: Response) => {
     const { name, bar_code, price, category_id } = req.body;
     let product = null;
+
+    try {
+      const productAlreadyExists = !!(await prismaClient.product.findFirst({
+        where: { name },
+      }));
+
+      if (productAlreadyExists) {
+        throw new Error("Product already exists!");
+      }
+    } catch (error: any) {
+      return res.status(400).json({ message: error.message });
+    }
+
     try {
       if (
         category_id != null &&
@@ -42,14 +55,6 @@ export default class ProductService {
   public find = async (req: Request, res: Response) => {
     const product_id = req.params.product_id;
     try {
-      if (product_id == null || product_id == undefined || product_id == "") {
-        return res
-          .status(404)
-          .json({ message: `Product '${product_id}' not found.` });
-      }
-
-      console.log(product_id);
-
       const product = await prismaClient.product.findUnique({
         where: {
           id: product_id,
@@ -60,6 +65,12 @@ export default class ProductService {
           },
         },
       });
+
+      if (!product) {
+        return res
+          .status(404)
+          .json({ message: `Product '${product_id}' not found.` });
+      }
 
       return res.status(201).json({
         product,

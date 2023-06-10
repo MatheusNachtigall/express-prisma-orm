@@ -12,7 +12,7 @@ datasource db {
 
 model Product {
   id              String            @id @default(uuid())
-  name            String
+  name            String            @unique
   bar_code        String            @unique
   price           Decimal
   created_at      DateTime          @default(now())
@@ -23,7 +23,7 @@ model Product {
 
 model Category {
   id              String            @id @default(uuid())
-  name            String
+  name            String            @unique
   created_at      DateTime          @default(now())
   ProductCategory ProductCategory[]
 

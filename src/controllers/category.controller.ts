@@ -13,5 +13,6 @@ export default class CategoryController {
 
   public setupRoutes() {
     this.router.post(`${this.path}`, this.categoryService.create);
+    this.router.get(`${this.path}/:category_id`, this.categoryService.find);
   }
 }
